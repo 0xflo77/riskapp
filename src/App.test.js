@@ -1,8 +1,9 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders RiskCalculator component', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const headerElement = screen.getByText(/Cybersecurity Risk Calculator/i);
+  expect(headerElement).toBeInTheDocument();
 });

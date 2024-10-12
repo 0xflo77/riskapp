@@ -1,79 +1,83 @@
-import React from 'react';
+/**
+ * RiskApp - Likelihood Questions Component
+ * Author: 0xflo77
+ * 
+ * This component handles the likelihood assessment questions.
+ * It uses OWASP criteria to evaluate the likelihood of security risks.
+ */
 
-const questionOptions = [
-  { value: 0, label: 'N/A' },
+import React, { useState, useEffect } from 'react';
+
+const likelihoodQuestions = [
+  "How technically skilled is this group of threat agents?",
+  "How motivated is this group of threat agents to find and exploit this vulnerability?",
+  "What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability?",
+  "How large is this group of threat agents?",
+  "How likely is an exploit to become widely available?",
+  "How easy is it for this group of threat agents to discover this vulnerability?"
+];
+
+const options = [
+  { value: 0, label: 'NA' },
   { value: 1, label: 'Low' },
-  { value: 4, label: 'Medium' },
-  { value: 7, label: 'High' },
-  { value: 9, label: 'Very High' },
+  { value: 2, label: 'Medium' },
+  { value: 3, label: 'High' },
+  { value: 4, label: 'Very High' }
 ];
 
-const questions = [
-  {
-    question: "How technically skilled is this group of threat agents?",
-    tooltip: "Consider the level of technical expertise and resources available to potential attackers."
-  },
-  {
-    question: "How motivated is this group of threat agents to find and exploit this vulnerability?",
-    tooltip: "Evaluate the potential rewards or incentives for exploiting this vulnerability."
-  },
-  {
-    question: "What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability?",
-    tooltip: "Consider the accessibility of the target and the complexity of the attack."
-  },
-  {
-    question: "How large is this group of threat agents?",
-    tooltip: "Estimate the number of potential attackers who might attempt to exploit this vulnerability."
-  },
-  {
-    question: "How easy is it to discover this vulnerability?",
-    tooltip: "Consider how readily apparent the vulnerability is and whether it requires specialized knowledge to identify."
-  },
-  {
-    question: "How easy is it to actually exploit this vulnerability?",
-    tooltip: "Evaluate the complexity of the attack and the availability of exploit tools or methods."
-  },
-  {
-    question: "How well known is this vulnerability to this group of threat agents?",
-    tooltip: "Consider whether the vulnerability is public knowledge or if it's a zero-day exploit."
-  },
-  {
-    question: "How likely is an exploit to be detected?",
-    tooltip: "Evaluate your current monitoring and detection capabilities for this type of exploit."
-  },
-];
+const LikelihoodQuestions = React.forwardRef(({ onScoreChange }, ref) => {
+  const [scores, setScores] = useState(Array(likelihoodQuestions.length).fill(0));
+  const [counts, setCounts] = useState({ NA: 0, Low: 0, Medium: 0, High: 0, VeryHigh: 0 });
 
-function LikelihoodQuestions({ onScoreChange }) {
-  const [answers, setAnswers] = React.useState({});
+  useEffect(() => {
+    const totalScore = scores.reduce((acc, curr) => acc + curr, 0);
+    onScoreChange(totalScore, counts);
+  }, [scores, counts, onScoreChange]);
 
-  const handleAnswerChange = (questionIndex, value) => {
-    const newAnswers = { ...answers, [questionIndex]: value };
-    setAnswers(newAnswers);
-    const totalScore = Object.values(newAnswers).reduce((sum, val) => sum + val, 0);
-    onScoreChange(Math.round(totalScore / 8)); // Average score rounded to nearest integer
+  const handleChange = (index, value) => {
+    const newScores = [...scores];
+    newScores[index] = parseInt(value);
+    setScores(newScores);
+
+    const newCounts = { NA: 0, Low: 0, Medium: 0, High: 0, VeryHigh: 0 };
+    newScores.forEach(score => {
+      if (score === 0) newCounts.NA++;
+      else if (score === 1) newCounts.Low++;
+      else if (score === 2) newCounts.Medium++;
+      else if (score === 3) newCounts.High++;
+      else if (score === 4) newCounts.VeryHigh++;
+    });
+    setCounts(newCounts);
   };
 
+  const reset = () => {
+    setScores(Array(likelihoodQuestions.length).fill(0));
+    setCounts({ NA: 0, Low: 0, Medium: 0, High: 0, VeryHigh: 0 });
+  };
+
+  React.useImperativeHandle(ref, () => ({
+    reset
+  }));
+
   return (
-    <div className="question-section">
+    <div className="questions-container" data-testid="likelihood-questions">
       <h2>Likelihood Assessment</h2>
-      {questions.map((q, index) => (
+      {likelihoodQuestions.map((question, index) => (
         <div key={index} className="question">
-          <p>
-            {q.question}
-            <span className="info-icon" title={q.tooltip}>ⓘ</span>
-          </p>
-          <select onChange={(e) => handleAnswerChange(index, parseInt(e.target.value))}>
-            <option value="">Select...</option>
-            {questionOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
+          <label>{question}</label>
+          <select 
+            onChange={(e) => handleChange(index, e.target.value)}
+            className={scores[index] ? `severity-${options.find(opt => opt.value === scores[index]).label.toLowerCase()}` : ''}
+          >
+            <option value="0">Select an option</option>
+            {options.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
             ))}
           </select>
         </div>
       ))}
     </div>
   );
-}
+});
 
 export default LikelihoodQuestions;

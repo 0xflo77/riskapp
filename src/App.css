@@ -1,8 +1,16 @@
+/**
+ * RiskApp - Main Stylesheet
+ * Author: 0xflo77
+ * 
+ * This stylesheet contains all the styles for the RiskApp application.
+ * It includes styles for layout, questions, scores, and risk levels.
+ */
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f0f0;
   color: #333;
-  line-height: 1.4;
+  line-height: 1.6;
   margin: 0;
   padding: 0;
 }
@@ -11,229 +19,183 @@ body {
   text-align: center;
 }
 
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .risk-calculator {
-  max-width: 1200px;
-  margin: 1rem auto;
-  padding: 1rem;
-  background-color: #ffffff;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  color: #2c3e50;
-  margin: 0.5rem 0 1rem;
-  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .calculator-content {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
 .questions-section {
-  flex: 3;
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  width: 70%;
 }
 
-.question-section {
-  flex: 1;
-  background-color: #f2f2f2;
-  padding: 1rem;
-  border-radius: 6px;
-}
-
-h2 {
-  color: #34495e;
-  margin-bottom: 0.75rem;
-  font-size: 1.2rem;
+.questions-container {
+  width: 48%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .question {
-  background-color: #ffffff;
-  padding: 0.75rem;
-  margin-bottom: 0.75rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.question p {
-  margin: 0 0 0.25rem;
-  font-size: 0.9rem;
+h2 {
+  color: #2196F3;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
   font-weight: 500;
-}
-
-.info-icon {
-  font-size: 0.7em;
-  color: #3498db;
-  cursor: help;
-  margin-left: 3px;
-  position: relative;
-}
-
-.info-icon::after {
-  content: attr(title);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #34495e;
-  color: #fff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: normal;
-  width: 180px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  z-index: 1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.info-icon:hover::after {
-  opacity: 1;
-  visibility: visible;
+  color: #555;
 }
 
 select {
   width: 100%;
-  padding: 0.4rem;
-  margin-top: 0.25rem;
-  border: 1px solid #bdc3c7;
+  padding: 8px;
+  border: 2px solid #ddd;
   border-radius: 4px;
-  background-color: #fff;
-  font-size: 0.9rem;
-  color: #2c3e50;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: white;
+  transition: border-color 0.3s ease;
 }
 
-select:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+select.severity-low {
+  border-color: #4CAF50;
+}
+
+select.severity-medium {
+  border-color: #FFC107;
+}
+
+select.severity-high {
+  border-color: #FF5722;
+}
+
+select.severity-na {
+  border-color: #A9A9A9;
+}
+
+select.severity-very-high {
+  border-color: #8B0000;
+}
+
+.severity-counts {
+  font-size: 0.9em;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.severity-counts div {
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.severity-counts div:nth-child(1) {
+  background-color: rgba(169, 169, 169, 0.1);
+  color: #A9A9A9;
+}
+
+.severity-counts div:nth-child(2) {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #FFC107;
+}
+
+.severity-counts div:nth-child(3) {
+  background-color: rgba(255, 87, 34, 0.1);
+  color: #FF5722;
+}
+
+.severity-counts div:nth-child(5) {
+  background-color: rgba(139, 0, 0, 0.1);
+  color: #8B0000;
 }
 
 .scores-section {
-  flex: 1;
-  background-color: #e8e8e8;
-  padding: 1rem;
-  border-radius: 6px;
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.score-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.score-item:last-child {
-  margin-bottom: 0;
+  width: 25%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  align-self: flex-start;
 }
 
 .score {
+  margin-bottom: 15px;
   font-weight: bold;
-  padding: 0.2rem 0.6rem;
-  border-radius: 20px;
+  color: #555;
+}
+
+.score span {
+  font-size: 1.2em;
+}
+
+.reset-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2196F3;
   color: white;
-  font-size: 0.8rem;
-  margin-right: 0.5rem;
-}
-
-.severity-label {
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.score.low {
-  background-color: #2ecc71;
-}
-
-.score.medium {
-  background-color: #f39c12;
-}
-
-.score.high {
-  background-color: #e74c3c;
-}
-
-.score.very-high {
-  background-color: #c0392b;
-}
-
-.overall-score {
-  margin-top: auto;
-  background-color: #3498db;
-  color: white;
-}
-
-.overall-score .score {
-  background-color: white;
-  color: #3498db;
-}
-
-.risk-matrix-container {
-  margin-top: 2rem;
-}
-
-.risk-matrix-container h2 {
-  margin-bottom: 1rem;
-}
-
-.risk-matrix {
-  display: inline-block;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 4px;
-  overflow: hidden;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-.matrix-row {
-  display: flex;
-}
-
-.matrix-cell {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: bold;
-  border: 1px solid #ccc;
-}
-
-.matrix-row.header .matrix-cell,
-.matrix-row .matrix-cell:first-child {
-  background-color: #f2f2f2;
-}
-
-.matrix-cell.low {
-  background-color: #a8e6cf;
-}
-
-.matrix-cell.medium {
-  background-color: #ffd3b6;
-}
-
-.matrix-cell.high {
-  background-color: #ffaaa5;
-}
-
-.matrix-cell.very-high {
-  background-color: #ff8b94;
-}
-
-.matrix-cell.selected {
-  border: 2px solid #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
+.reset-button:hover {
+  background-color: #1976D2;
 }

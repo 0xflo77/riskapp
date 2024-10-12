@@ -1,73 +1,68 @@
-import React from 'react';
+/**
+ * RiskApp - Impact Questions Component
+ * Author: 0xflo77
+ * 
+ * This component handles the impact assessment questions.
+ * It uses OWASP criteria to evaluate the impact of security risks.
+ */
 
-const questionOptions = [
-  { value: 0, label: 'N/A' },
-  { value: 2, label: 'Low' },
-  { value: 5, label: 'Medium' },
-  { value: 8, label: 'High' },
-  { value: 10, label: 'Very High' },
+import React, { useState, useEffect } from 'react';
+
+const impactQuestions = [
+  "How severe is the impact on data confidentiality?",
+  "How severe is the impact on data integrity?",
+  "How severe is the impact on data availability?",
+  "How severe is the impact on accountability?",
+  "How severe is the financial damage?",
+  "How severe is the reputation damage?"
 ];
 
-const questions = [
-  {
-    question: "How much data could be disclosed and how sensitive is it?",
-    tooltip: "Consider the volume and sensitivity of data that could be compromised in a breach."
-  },
-  {
-    question: "How critical is data integrity for this system?",
-    tooltip: "Evaluate the importance of data accuracy and the potential impact of data corruption."
-  },
-  {
-    question: "How much service could be lost and how vital is it?",
-    tooltip: "Consider the potential for service disruption and its impact on business operations."
-  },
-  {
-    question: "How likely is the vulnerability to affect the reputation of the company?",
-    tooltip: "Evaluate the potential for negative publicity and loss of customer trust."
-  },
-  {
-    question: "What are the financial consequences of exploiting this vulnerability?",
-    tooltip: "Consider direct costs (e.g., fines, legal fees) and indirect costs (e.g., loss of business)."
-  },
-  {
-    question: "What are the privacy implications of this vulnerability?",
-    tooltip: "Evaluate potential violations of data protection regulations and individual privacy."
-  },
-  {
-    question: "What are the potential legal or compliance consequences?",
-    tooltip: "Consider regulatory fines, legal actions, and compliance violations."
-  },
-  {
-    question: "What is the potential impact on the organization's mission or business objectives?",
-    tooltip: "Evaluate how the vulnerability could affect the organization's ability to achieve its goals."
-  },
+const options = [
+  { value: 0, label: 'NA' },
+  { value: 1, label: 'Low' },
+  { value: 2, label: 'Medium' },
+  { value: 3, label: 'High' },
+  { value: 4, label: 'Very High' }
 ];
 
 function ImpactQuestions({ onScoreChange }) {
-  const [answers, setAnswers] = React.useState({});
+  const [scores, setScores] = useState(Array(impactQuestions.length).fill(0));
+  const [counts, setCounts] = useState({ NA: 0, Low: 0, Medium: 0, High: 0, VeryHigh: 0 });
 
-  const handleAnswerChange = (questionIndex, value) => {
-    const newAnswers = { ...answers, [questionIndex]: value };
-    setAnswers(newAnswers);
-    const totalScore = Object.values(newAnswers).reduce((sum, val) => sum + val, 0);
-    onScoreChange(Math.round(totalScore / 8)); // Average score rounded to nearest integer
+  useEffect(() => {
+    const totalScore = scores.reduce((acc, curr) => acc + curr, 0);
+    onScoreChange(totalScore, counts);
+  }, [scores, counts, onScoreChange]);
+
+  const handleChange = (index, value) => {
+    const newScores = [...scores];
+    newScores[index] = parseInt(value);
+    setScores(newScores);
+
+    const newCounts = { NA: 0, Low: 0, Medium: 0, High: 0, VeryHigh: 0 };
+    newScores.forEach(score => {
+      if (score === 0) newCounts.NA++;
+      else if (score === 1) newCounts.Low++;
+      else if (score === 2) newCounts.Medium++;
+      else if (score === 3) newCounts.High++;
+      else if (score === 4) newCounts.VeryHigh++;
+    });
+    setCounts(newCounts);
   };
 
   return (
-    <div className="question-section">
+    <div className="questions-container" data-testid="impact-questions">
       <h2>Impact Assessment</h2>
-      {questions.map((q, index) => (
+      {impactQuestions.map((question, index) => (
         <div key={index} className="question">
-          <p>
-            {q.question}
-            <span className="info-icon" title={q.tooltip}>ⓘ</span>
-          </p>
-          <select onChange={(e) => handleAnswerChange(index, parseInt(e.target.value))}>
-            <option value="">Select...</option>
-            {questionOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
+          <label>{question}</label>
+          <select 
+            onChange={(e) => handleChange(index, e.target.value)}
+            className={scores[index] ? `severity-${options.find(opt => opt.value === scores[index]).label.toLowerCase()}` : ''}
+          >
+            <option value="0">Select an option</option>
+            {options.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
             ))}
           </select>
         </div>
