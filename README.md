@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Cybersecurity Risk Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a React-based web application that calculates cybersecurity risk based on likelihood and impact assessments. It uses the OWASP risk assessment methodology to provide a comprehensive risk evaluation.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Likelihood assessment based on OWASP criteria
+- Impact assessment based on OWASP criteria
+- Real-time calculation of risk scores
+- Visual representation of risk levels
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before you begin, ensure you have met the following requirements:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- You have installed Node.js and npm (Node Package Manager)
+- You have a basic understanding of React and JavaScript
 
-### `npm test`
+## Installing and Running the Cybersecurity Risk Calculator
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To install and run the Cybersecurity Risk Calculator, follow these steps:
 
-### `npm run build`
+1. Clone the repository to your local machine:
+   ```
+   git clone https://github.com/your-username/cybersecurity-risk-calculator.git
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project directory:
+   ```
+   cd cybersecurity-risk-calculator
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install the required dependencies:
+   ```
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start the development server:
+   ```
+   npm start
+   ```
 
-### `npm run eject`
+5. Open your web browser and visit `http://localhost:3000` to view the application.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Using the Cybersecurity Risk Calculator
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Answer the questions in the Likelihood and Impact assessment sections.
+2. The application will automatically calculate and display the risk scores.
+3. The overall risk score and its corresponding risk level will be shown at the bottom.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing to the Cybersecurity Risk Calculator
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To contribute to the Cybersecurity Risk Calculator, follow these steps:
 
-## Learn More
+1. Fork this repository.
+2. Create a branch: `git checkout -b <branch_name>`.
+3. Make your changes and commit them: `git commit -m '<commit_message>'`
+4. Push to the original branch: `git push origin <project_name>/<location>`
+5. Create the pull request.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Alternatively, see the GitHub documentation on [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contact
 
-### Code Splitting
+If you want to contact the maintainer of this project, please email [your-email@example.com](mailto:your-email@example.com).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project uses the following license: [MIT License](https://opensource.org/licenses/MIT).
